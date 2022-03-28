@@ -13,6 +13,8 @@ const app = express();
 
 app.set('trust proxy', 1);
 
+const __dirname = path.resolve();
+
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use(cors());
