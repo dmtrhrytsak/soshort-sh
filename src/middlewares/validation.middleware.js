@@ -1,4 +1,6 @@
 const validationMiddleware = (schema) => async (req, res, next) => {
+  console.log('YOUR req', req.body);
+
   try {
     await schema.validate({
       body: req.body,
