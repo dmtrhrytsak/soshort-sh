@@ -1,6 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimiter from 'express-rate-limit';
+import xss from 'xss-clean';
 import morgan from 'morgan';
 import path from 'path';
 
@@ -15,11 +18,18 @@ app.set('trust proxy', 1);
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  })
+);
+app.use(xss());
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
-
 app.use(morgan('tiny'));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/url', urlRouter);
 app.get('/:slug', handleRedirect);
