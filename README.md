@@ -15,5 +15,6 @@ Soshort-sh is full-stack url shorter created with Express and React, using Herok
 Project is created with:
 * Node.js
 * Express.js
+* Mongo DB
 * React
 * Chakra UI
